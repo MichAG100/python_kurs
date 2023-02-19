@@ -1,4 +1,4 @@
-#krok 6 zadania z 19.02.2023
+#krok 7 zadania z 19.02.2023
 import math
 
 
@@ -38,6 +38,13 @@ class Polygon:
             vertices_str+=str(vertex) + ", "
         return f"Polygon({vertices_str[:-2]})"
 
+    def svg(self):
+        vertices_str = ""
+        for vertex in self.vertices:
+            vertices_str += f'{vertex.x},{vertex.y} '
+        return f'<polygon points = "{vertices_str[:-1]}" />'
+
+
 def main():
     p = Point(300, 0)
     q = Point(0, 400)
@@ -46,6 +53,6 @@ def main():
     polygon.add(q)
     polygon.add(Point(300, 400))
 
-    print(polygon)
+    print(polygon.svg())
 
 main()

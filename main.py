@@ -1,4 +1,4 @@
-#krok 10 zadania z 19.02.2023
+#krok 11 zadania z 19.02.2023
 import math
 
 
@@ -30,8 +30,9 @@ class Segment:
 
 
 class Polygon:
-    def __init__(self):
+    def __init__(self, style):
         self.vertices=[]
+        self.style=style
 
     def add(self, vertex):
         self.vertices.append(vertex)
@@ -46,7 +47,7 @@ class Polygon:
         vertices_str = ""
         for vertex in self.vertices:
             vertices_str += f'{vertex.x},{vertex.y} '
-        return f'<polygon points = "{vertices_str[:-1]}" />'
+        return f'<polygon points = "{vertices_str[:-1]}" {self.style.svg()} />'
 
     def area(self):
         result = 0
@@ -70,10 +71,20 @@ class Polygon:
         for vertex in self.vertices:
             vertex.translate(x, y)
 
+class Style:
+    def __init__(self, file_color="transparent", stroke_color="black", stroke_width=1):
+        self.file_color=file_color
+        self.stroke_color=stroke_color
+        self.stroke_width=stroke_width
+
+    def svg(self):
+        return f'style="fill:{self.fill_color};stroke{self.stroke_color};stroke_width{slef.stroke_width}'
+
+
 def main():
     p = Point(300, 0)
     q = Point(0, 400)
-    polygon=Polygon()
+    polygon=Polygon(Style(file_color="red"))
     polygon.add(p)
     polygon.add(q)
     polygon.add(Point(300, 400))

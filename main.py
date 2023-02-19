@@ -1,4 +1,4 @@
-#krok 9 zadania z 19.02.2023
+#krok 10 zadania z 19.02.2023
 import math
 
 
@@ -9,6 +9,10 @@ class Point:
 
     def __str__(self) -> str:
         return f"Point({self.x},{self.y}"
+
+    def translate(self, x, y):
+        self.x+=x
+        self.y+=y
 
 class Segment:
     def __init__(self, p1, p2):
@@ -62,7 +66,9 @@ class Polygon:
             polygon.add(Point(x, y))
         return polygon
 
-
+    def translate(self, x, y):
+        for vertex in self.vertices:
+            vertex.translate(x, y)
 
 def main():
     p = Point(300, 0)
@@ -76,6 +82,7 @@ def main():
     #print(polygon.area())
 
     pentagon = Polygon.regular_pentagon(150)
+    pentagon.translate(300, 400)
     print(pentagon.svg())
 
 main()

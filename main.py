@@ -1,4 +1,4 @@
-#krok 12 zadania z 19.02.2023
+#krok 13 zadania z 19.02.2023
 import math
 class Point:
     def __init__(self, x=0, y=0):
@@ -44,6 +44,17 @@ class Polygon:
             det = (pa.x * pn.y) - (pa.y * pn.x)
             result += det
         return abs(result / 2)
+
+    def bottom_right(self):
+        max_x=0
+        max_y=0
+        for vertex in self.vertices:
+            max_x=max(max_x, vertex.x)
+            max_y=max(max_y, vertex.y)
+        return Point(max_x, max_y)
+
+
+
     @staticmethod
     def regular_pentagon(radius,style):
         polygon = Polygon(style)
@@ -63,38 +74,49 @@ class Style:
         #style="fill:lime;stroke:purple;stroke-width:1"
     def svg(self):
         return f'style="fill:{self.fill_color};stroke:{self.stroke_color};stroke-width:{self.stroke_width}"'
-
-
 class Scene:
     def __init__(self):
         self.shapes = []
     def add(self, shape):
         self.shapes.append(shape)
     def save(self, path):
+        rb=self.bottom_right()
         file=open(path,"w")
         file.write("<html>\n<body>\n")
         file.write('<svg height="1000" width="1000">\n')
+        file.write(f'<svg height="{rb.y}" width="{rb.x}">\n')
         for shape in self.shapes:
             file.write(shape.svg()+'\n')
         file.write("</svg>\n</body>\n</html>")
         file.close()
 
 
+    def bottom_right(self):
+        max_x=0
+        max_y=0
+        for shape in self.shapes:
+            br=shape.bottom_right()
+            max_x=max(max_x, br.x)
+            max_y=max(max_y, br.y)
+        return Point(max_x, max_y)
 
 
 
-
-@@ -100,7 +116,12 @@def main():
-
+def main():
+    p = Point(300, 0)
+    q = Point(0, 400)
+    polygon = Polygon(Style(fill_color="red"))
+    polygon.add(p)
+    polygon.add(q)
+    polygon.add(Point(300, 400))
+    # print(polygon.svg())
+    # print(polygon.area())
     pentagon = Polygon.regular_pentagon(150, Style(fill_color="green", stroke_color="red"))
     pentagon.translate(200,300)
-    print(pentagon.svg())
     #print(pentagon.svg())
     scene=Scene()
     scene.add(polygon)
     scene.add(pentagon)
     scene.save("plik.html")
-
-
 
 main()

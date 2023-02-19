@@ -1,16 +1,16 @@
-# This is a sample Python script.
+#krok 3 zadania z 19.02.2023
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+    def __str__(self) -> str:
+        return f"Point({self.x},{self.y}"
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def main():
+    p = Point(5, 10)
+    p.x= 100
+    print(p.x, p.y)
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+main()

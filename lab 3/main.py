@@ -1,8 +1,9 @@
-# zadanie 1 krok 2
+# zadanie 1 krok 2 postfixowa notacja
+
+operators = ['+','-','*','/','(',')']
 def rvp(infix):
     stack = []
     postfix = ""
-    operators = ['+','-','*','/','(',')']
     priority = {'+':1, '-':1, '*':2, '/':2}
 
     for c in infix:
@@ -23,9 +24,27 @@ def rvp(infix):
         postfix += stack.pop()
     return postfix
 
+def solve(postfix):
+    stack=[]
+    for c in postfix.split():
+        if c not in operators:
+            stack.append(int(c))
+        else:
+            right = stack.pop()
+            left = stack.pop()
+            if c == "+":
+                stack.append(right+left)
+            if c == "-":
+                stack.append(left-right)
+            if c == "*":
+                stack.append(right*left)
+            if c == "/":
+                stack.append(left/right)
+    return stack.pop()
 
 def main():
-    print(rvp("((2+7)/3+(8-3)*4)/2"))
+    #print(rvp("((2+7)/3+(8-3)*4)/2"))
+    print(solve("2 7 + 3 / 14 3 - 4 * + 2 /"))
 
 if __name__=="__main__":
     main()

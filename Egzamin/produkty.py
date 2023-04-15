@@ -1,7 +1,7 @@
 class Produkty:
     produkty = set()
-    def __init__(self,wiersz):
-        dane = wiersz.split(",")
+    def __init__(self, linia):
+        dane = linia.split(",")
         self.__nazwa = dane [0]
         self.__ceny =[float(cena) for cena in dane[1:]]
 
@@ -25,4 +25,18 @@ class Produkty:
                 return produkt
            return None
 
-    @
+    @staticmethod
+    def zestaw_dane(miesiac, rok):
+        if rok<2010 or rok>2023:
+            return False
+        if miesiac<1 or miesiac>12:
+            return False
+        if rok == 2023 and miesiac>3:
+            return False
+        return True
+
+    def cena(self, miesiac, rok):
+        if Produkt.zestaw_dane(miesiac, rok):
+            return self.__ceny[(rok - 2010)*12 + miesiac-1]
+        return None
+
